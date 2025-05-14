@@ -1,0 +1,89 @@
+# Query: index.html\n
+# ContextLines: 1
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora do PC Paulão</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('paulao_background.png');
+      background-size: cover;
+      background-repeat: repeat;
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 10px;
+      color: #ffd700;
+      text-shadow: 2px 2px 5px #000;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 1em;
+      border-radius: 5px;
+      border: none;
+      text-align: center;
+    }
+
+    .resultado, .passo {
+      margin-top: 30px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bhaskara do PC Paulão 🔥</h1>
+  <p>Insira os coeficientes da equação ax² + bx + c = 0</p>
+  <input type="number" id="a" placeholder="a">
+  <input type="number" id="b" placeholder="b">
+  <input type="number" id="c" placeholder="c">
+  <br>
+  <button onclick="calcular()">Calcular</button>
+
+  <div class="passo" id="passos"></div>
+  <div class="resultado" id="resultado"></div>
+
+  <script>
+    function calcular() {
+      const a = parseFloat(document.getElementById("a").value);
+      const b = parseFloat(document.getElementById("b").value);
+      const c = parseFloat(document.getElementById("c").value);
+
+      const delta = b * b - 4 * a * c;
+      let passos = `
+        <h3>📘 Passo a passo do Mestre Paulão:</h3>
+        <p>🔢 1. Fórmula de Bhaskara: x = (-b ± √Δ) / 2a</p>
+        <p>🧠 2. Calculando Δ: Δ = b² - 4ac = (${b})² - 4×${a}×${c} = ${delta}</p>
+      `;
+
+      if (delta < 0) {
+        passos += `<p>❌ 3. Como Δ &lt; 0, não existem raízes reais.</p>`;
+        document.getElementById("resultado").innerHTML = "<strong>Resultado:</strong> Nenhuma raiz real 😢";
+      } else {
+        const raizDelta = Math.sqrt(delta);
+        const x1 = (-b + raizDelta) / (2 * a);
+        const x2 = (-b - raizDelta) / (2 * a);
+        passos += `<p>✍️ 3. √Δ = ${raizDelta.toFixed(2)}</p>`;
+        passos += `<p>🎯 4. x₁ = ${x1.toFixed(2)}, x₂ = ${x2.toFixed(2)}</p>`;
+        document.getElementById("resultado").innerHTML = `<strong>Resultado:</strong><br>x₁ = ${x1.toFixed(2)}<br>x₂ = ${x2.toFixed(2)}`;
+      }
+
+      passos += `<p style="margin-top:20px;">🧙‍♂️ Agradecimentos ao lendário PC Paulão, o mestre da matemática moderna, conhecido como:</p>
+                 <p>🔹 Professor Calculadora<br>🔹 Pai da Álgebra<br>🔹 Terror das Equações</p>`;
+
+      document.getElementById("passos").innerHTML = passos;
+    }
+  </script>
+</body>
+</html>
